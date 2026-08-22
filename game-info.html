@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Details - GAMEVERSE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ============================================
+           PAGE DETAILS - PURPLE THEME
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg,
+                    #0a0015 0%,
+                    #1a0030 25%,
+                    #2d0050 50%,
+                    #1a0030 75%,
+                    #0a0015 100%);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ===== دکمه بازگشت ===== */
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(150, 0, 255, 0.2);
+            border: 2px solid rgba(150, 0, 255, 0.4);
+            border-radius: 50px;
+            color: #d4a1ff;
+            text-decoration: none;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(150, 0, 255, 0.2);
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .back-btn:hover {
+            background: rgba(200, 50, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(200, 50, 255, 0.4);
+            border-color: rgba(200, 50, 255, 0.6);
+        }
+
+        /* ===== کانتینر اصلی ===== */
+        .game-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ===== کارت اصلی بازی ===== */
+        .game-detail-card {
+            display: flex;
+            gap: 40px;
+            background: linear-gradient(135deg,
+                    rgba(30, 0, 60, 0.95) 0%,
+                    rgba(50, 0, 80, 0.9) 50%,
+                    rgba(20, 0, 40, 0.95) 100%);
+            border-radius: 30px;
+            padding: 35px;
+            border: 2px solid rgba(150, 0, 255, 0.3);
+            box-shadow:
+                0 0 50px rgba(150, 0, 255, 0.3),
+                0 0 100px rgba(150, 0, 255, 0.15),
+                inset 0 0 50px rgba(150, 0, 255, 0.05);
+            animation: cardPulse 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .game-detail-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 30% 50%,
+                    rgba(150, 0, 255, 0.05) 0%,
+                    transparent 60%);
+            animation: cardShine 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardShine {
+            0%, 100% { transform: translateX(-30%) rotate(0deg); }
+            50% { transform: translateX(30%) rotate(5deg); }
+        }
+
+        @keyframes cardPulse {
+            0%, 100% {
+                box-shadow: 0 0 50px rgba(150, 0, 255, 0.3), 0 0 100px rgba(150, 0, 255, 0.15);
+            }
+            50% {
+                box-shadow: 0 0 70px rgba(180, 0, 255, 0.4), 0 0 120px rgba(150, 0, 255, 0.25);
+            }
+        }
+
+        /* ===== پوستر بازی ===== */
+        .game-poster-wrapper {
+            flex: 0 0 320px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow:
+                0 0 30px rgba(150, 0, 255, 0.5),
+                0 0 60px rgba(150, 0, 255, 0.3),
+                inset 0 0 30px rgba(150, 0, 255, 0.2);
+            border: 2px solid rgba(200, 50, 255, 0.4);
+            animation: posterFloat 5s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes posterFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .game-poster-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 400px;
+        }
+
+        /* ===== اطلاعات بازی ===== */
+        .game-info-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .game-title-detail {
+            font-size: 38px;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg,
+                    #c084fc 0%,
+                    #a855f7 30%,
+                    #7c3aed 60%,
+                    #a855f7 80%,
+                    #c084fc 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientMove 4s ease infinite;
+            letter-spacing: 2px;
+            text-shadow: none;
+            line-height: 1.2;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ===== تگ‌ها ===== */
+        .tags-wrapper {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag-detail {
+            padding: 8px 20px;
+            background: rgba(150, 0, 255, 0.15);
+            border: 1px solid rgba(200, 50, 255, 0.3);
+            border-radius: 50px;
+            color: #d4a1ff;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Chakra Petch', sans-serif;
+            box-shadow: 0 0 15px rgba(150, 0, 255, 0.15);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tag-detail:hover {
+            background: rgba(200, 50, 255, 0.25);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 25px rgba(200, 50, 255, 0.3);
+            border-color: rgba(200, 50, 255, 0.6);
+        }
+
+        /* ===== توضیحات ===== */
+        .game-description-detail {
+            color: #c8b0e8;
+            font-size: 16px;
+            line-height: 1.9;
+            text-shadow: 0 0 10px rgba(150, 0, 255, 0.2);
+            padding: 15px 20px;
+            background: rgba(150, 0, 255, 0.05);
+            border-radius: 15px;
+            border-right: 3px solid rgba(150, 0, 255, 0.3);
+        }
+
+        /* ===== باکس اطلاعات ===== */
+        .info-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 5px 0;
+        }
+
+        .info-box {
+            background: rgba(150, 0, 255, 0.08);
+            border: 1px solid rgba(150, 0, 255, 0.2);
+            border-radius: 15px;
+            padding: 18px 15px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+
+        .info-box:hover {
+            background: rgba(150, 0, 255, 0.18);
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 0 30px rgba(150, 0, 255, 0.2);
+            border-color: rgba(200, 50, 255, 0.4);
+        }
+
+        .info-box-label {
+            font-size: 11px;
+            color: #a080c0;
+            font-family: 'Chakra Petch', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .info-box-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(150, 0, 255, 0.4);
+        }
+
+        /* ===== بخش دانلود ===== */
+        .download-section-detail {
+            background: linear-gradient(135deg,
+                    rgba(30, 0, 60, 0.9) 0%,
+                    rgba(50, 0, 80, 0.85) 50%,
+                    rgba(20, 0, 40, 0.9) 100%);
+            border-radius: 30px;
+            padding: 35px;
+            border: 2px solid rgba(150, 0, 255, 0.25);
+            box-shadow: 0 0 40px rgba(150, 0, 255, 0.15);
+            margin-top: 10px;
+        }
+
+        .download-title-detail {
+            font-size: 26px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            color: #d4a1ff;
+            margin-bottom: 25px;
+            text-shadow: 0 0 30px rgba(150, 0, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .download-title-detail span {
+            font-size: 30px;
+        }
+
+        /* ===== لیست دانلودها ===== */
+        .download-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .download-item {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 20px 25px;
+            background: linear-gradient(135deg,
+                    rgba(255, 140, 0, 0.12) 0%,
+                    rgba(255, 100, 0, 0.08) 50%,
+                    rgba(255, 60, 0, 0.12) 100%);
+            border: 2px solid rgba(255, 150, 50, 0.25);
+            border-radius: 18px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px rgba(255, 120, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -100%;
+            width: 50%;
+            height: 200%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    rgba(255, 255, 255, 0.2),
+                    rgba(255, 255, 255, 0.1),
+                    transparent);
+            transform: rotate(25deg);
+            animation: shineDownload 4s ease-in-out infinite;
+        }
+
+        @keyframes shineDownload {
+            0% { left: -100%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        .download-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(255, 180, 50, 0.6);
+            box-shadow:
+                0 0 30px rgba(255, 140, 0, 0.4),
+                0 0 60px rgba(255, 120, 0, 0.2);
+            background: linear-gradient(135deg,
+                    rgba(255, 160, 0, 0.2) 0%,
+                    rgba(255, 120, 0, 0.15) 50%,
+                    rgba(255, 80, 0, 0.2) 100%);
+        }
+
+        .download-icon-detail {
+            font-size: 32px;
+            filter: drop-shadow(0 0 15px rgba(255, 150, 0, 0.5));
+            flex-shrink: 0;
+        }
+
+        .download-info-detail {
+            flex: 1;
+        }
+
+        .download-name-detail {
+            font-size: 16px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 150, 0, 0.3);
+        }
+
+        .download-size-detail {
+            font-size: 13px;
+            color: #ffd0a0;
+            opacity: 0.8;
+        }
+
+        .download-badge {
+            background: rgba(255, 150, 0, 0.2);
+            border: 1px solid rgba(255, 150, 0, 0.3);
+            border-radius: 50px;
+            padding: 4px 15px;
+            font-size: 11px;
+            color: #ffd0a0;
+            font-weight: 600;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .game-detail-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 25px;
+            }
+
+            .game-poster-wrapper {
+                flex: 0 0 auto;
+                width: 250px;
+                max-width: 100%;
+            }
+
+            .game-poster-wrapper img {
+                min-height: auto;
+            }
+
+            .game-title-detail {
+                font-size: 30px;
+            }
+
+            .game-description-detail {
+                text-align: justify;
+            }
+
+            .info-boxes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .download-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+
+            .game-detail-card {
+                padding: 18px;
+                border-radius: 20px;
+            }
+
+            .game-poster-wrapper {
+                width: 200px;
+            }
+
+            .game-title-detail {
+                font-size: 24px;
+            }
+
+            .info-boxes {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .info-box {
+                padding: 12px 10px;
+            }
+
+            .info-box-value {
+                font-size: 16px;
+            }
+
+            .download-section-detail {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .download-item {
+                padding: 15px 18px;
+                flex-wrap: wrap;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .download-title-detail {
+                font-size: 20px;
+                justify-content: center;
+            }
+
+            .back-btn {
+                font-size: 12px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-detail-container">
+
+    <!-- ===== دکمه بازگشت ===== -->
+    <a href="index.html" class="back-btn">
+        ⬅ بازگشت به صفحه اصلی
+    </a>
+
+    <!-- ===== کارت اصلی بازی ===== -->
+    <div class="game-detail-card">
+        <div class="game-poster-wrapper">
+            <img id="gamePoster" src="" alt="پوستر بازی">
+        </div>
+
+        <div class="game-info-wrapper">
+            <h1 class="game-title-detail" id="gameTitle">عنوان بازی</h1>
+
+            <div class="tags-wrapper" id="gameTags">
+                <!-- تگ‌ها -->
+            </div>
+
+            <p class="game-description-detail" id="gameDescription">
+                توضیحات بازی
+            </p>
+
+            <div class="info-boxes" id="gameDetails">
+                <!-- باکس‌های اطلاعات -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== بخش دانلود ===== -->
+    <div class="download-section-detail">
+        <h2 class="download-title-detail">
+            <span>📥</span> لینک‌های دانلود
+        </h2>
+
+        <div class="download-list" id="downloadLinks">
+            <!-- لینک‌های دانلود -->
+        </div>
+    </div>
+
+</div>
+
+<script>
+// =============================================
+// دیتابیس بازی‌ها
+// =============================================
+const games = {
+    1: {
+        title: "CYBERPUNK 2077",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co7iy1.webp",
+        tags: ["🎮 RPG", "🌆 Open World", "⚔️ Action", "🔮 Sci-Fi"],
+        desc: "وارد دنیای تاریک و خطرناک Night City شوید. جایی که تکنولوژی و انسان در هم می‌آمیزند و شما باید برای بقا در این شهر بی‌رحم مبارزه کنید. با شخصیت V همراه شوید و رازهای این شهر را کشف کنید.",
+        rating: "⭐ 4.8/5",
+        release: "📅 2020",
+        size: "💾 70 GB",
+        downloads: "⬇ 1.2M",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "70 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "35 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "35 GB | Part 2", url: "#" },
+            { name: "بخش سوم", icon: "📦", size: "5 GB | کرک + آپدیت", url: "#" }
+        ]
+    },
+    2: {
+        title: "GOD OF WAR RAGNARÖK",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/coba3d.webp",
+        tags: ["⚔️ Action", "🏹 Adventure", "🗡️ Norse", "🎮 Story"],
+        desc: "ادامه ماجراجویی حماسی کریتوس و آترئوس در دنیای اساطیر نورس. با خدایان و هیولاهای جدید روبرو شوید و سرنوشت خود را رقم بزنید.",
+        rating: "⭐ 4.9/5",
+        release: "📅 2022",
+        size: "💾 90 GB",
+        downloads: "⬇ 2.5M",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "90 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "45 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "45 GB | Part 2", url: "#" }
+        ]
+    },
+    3: {
+        title: "ELDEN RING",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co4jni.webp",
+        tags: ["🗡️ Souls-like", "⚔️ RPG", "🌍 Open World", "🏰 Fantasy"],
+        desc: "ساخته FromSoftware و George R.R. Martin، سفری حماسی در دنیای Lands Between. با دشمنان سخت و اسرارآمیز روبرو شوید و راز حلقهٔ الدن را کشف کنید.",
+        rating: "⭐ 4.9/5",
+        release: "📅 2022",
+        size: "💾 60 GB",
+        downloads: "⬇ 3.1M",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "60 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "30 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "30 GB | Part 2", url: "#" }
+        ]
+    },
+    4: {
+        title: "RED DEAD REDEMPTION 2",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1q1f.webp",
+        tags: ["🤠 Western", "🏇 Adventure", "🌵 Open World", "📖 Story"],
+        desc: "داستان حماسی آرتور مورگان و باند Van der Linde در غرب وحشی آمریکا. سفری پر از ماجراجویی، خیانت و بقا در یکی از بهترین بازی‌های تاریخ.",
+        rating: "⭐ 4.8/5",
+        release: "📅 2018",
+        size: "💾 150 GB",
+        downloads: "⬇ 4.2M",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "150 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "50 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "50 GB | Part 2", url: "#" },
+            { name: "بخش سوم", icon: "📦", size: "50 GB | Part 3", url: "#" }
+        ]
+    },
+    5: {
+        title: "THE WITCHER 3",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/coaarl.webp",
+        tags: ["🧙 Fantasy", "⚔️ RPG", "🌍 Open World", "📖 Story"],
+        desc: "ماجراجویی گرالت از ریویا در جستجوی سیری در دنیایی پر از هیولا، جادو و سیاست. یکی از بهترین بازی‌های نقش‌آفرینی تاریخ.",
+        rating: "⭐ 4.9/5",
+        release: "📅 2015",
+        size: "💾 50 GB",
+        downloads: "⬇ 5.8M",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "50 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "25 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "25 GB | Part 2", url: "#" }
+        ]
+    },
+    6: {
+        title: "HORIZON FORBIDDEN WEST",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2gvu.webp",
+        tags: ["🏹 Action", "🌍 Sci-Fi", "🤖 Open World", "🗺️ Adventure"],
+        desc: "ادامه ماجراجویی Aloy در دنیای پسا-آخرالزمانی پر از ماشین‌های عظیم و رازهای جدید. سفری به غرب ممنوعه برای نجات بشریت.",
+        rating: "⭐ 4.7/5",
+        release: "📅 2022",
+        size: "💾 100 GB",
+        downloads: "⬇ 1.8M",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "100 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "50 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "50 GB | Part 2", url: "#" }
+        ]
+    },
+    
+    7: {
+        title: "Alan Wake 2",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co6jar.webp",
+        tags: ["🏹 Action", "🌍 Horror", "🤖 Story", "🗺️ Adventure"],
+        desc: "ادامه ماجراجویی Aloy در دنیای پسا-آخرالزمانی پر از ماشین‌های عظیم و رازهای جدید. سفری به غرب ممنوعه برای نجات بشریت.",
+        rating: "⭐ 4.8/5",
+        release: "📅 2023",
+        size: "💾 100 GB",
+        downloads: "⬇ 1k",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "100 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "50 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "50 GB | Part 2", url: "#" }
+        ]
+    },
+    
+    8: {
+        title: "GTA VI",
+        poster: "https://4kwallpapers.com/images/walls/thumbs_2t/26940.jpg  ",
+        tags: ["🏹 Action", "🌍 Open World", "🤖 Shooter", "🗺️ Adventure"],
+        desc: "شروع سرقت در دنیای آمریکایی جیسون و لوسیا",
+        rating: "⭐ 4.8/5",
+        release: "📅 2026",
+        size: "💾 150 GB",
+        downloads: "⬇ 100k",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "100 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "50 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "50 GB | Part 2", url: "#" }
+        ]
+    },
+    9: {
+        title: "Beast of Reincarnation",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/cobc5q.webp  ",
+        tags: ["🏹  Role-playing", "🌍 Open World", "🗺️ Adventure"],
+        desc: "سرزمین فانتزی این بازی شما رو به دنیای دیگه میبره ",
+        rating: "⭐ 4.5/5",
+        release: "📅 2026",
+        size: "💾 30 GB",
+        downloads: "⬇ 10k",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "100 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "50 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "50 GB | Part 2", url: "#" }
+        ]
+    },
+    
+    10: {
+        title: "EGO Batman: Legacy of the Dark Knight",
+        poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/coab09.webp ",
+        tags: ["🏹  Role-playing", "🌍 Open World", "🗺️ Adventure"],
+        desc: "سرزمین فانتزی این بازی شما رو به دنیای دیگه میبره ",
+        rating: "⭐ 4.8/5",
+        release: "📅 2026",
+        size: "💾 60 GB",
+        downloads: "⬇ 50k",
+        links: [
+            { name: "دانلود مستقیم", icon: "⚡", size: "100 GB | نسخه کامل", url: "#" },
+            { name: "بخش اول", icon: "📦", size: "50 GB | Part 1", url: "#" },
+            { name: "بخش دوم", icon: "📦", size: "50 GB | Part 2", url: "#" }
+        ]
+    },
+    
+
+};
+
+// =============================================
+// دریافت ID و نمایش اطلاعات
+// =============================================
+const params = new URLSearchParams(window.location.search);
+const gameId = params.get('id');
+const game = games[gameId];
+
+if (!game) {
+    window.location.href = 'index.html';
+} else {
+    // پوستر
+    document.getElementById('gamePoster').src = game.poster;
+
+    // عنوان
+    document.getElementById('gameTitle').textContent = game.title;
+
+    // تگ‌ها
+    document.getElementById('gameTags').innerHTML = game.tags.map(t =>
+        `<span class="tag-detail">${t}</span>`
+    ).join('');
+
+    // توضیحات
+    document.getElementById('gameDescription').textContent = game.desc;
+
+    // باکس‌های اطلاعات
+    document.getElementById('gameDetails').innerHTML = `
+        <div class="info-box">
+            <div class="info-box-label">⭐ امتیاز</div>
+            <div class="info-box-value">${game.rating}</div>
+        </div>
+        <div class="info-box">
+            <div class="info-box-label">📅 انتشار</div>
+            <div class="info-box-value">${game.release}</div>
+        </div>
+        <div class="info-box">
+            <div class="info-box-label">💾 حجم</div>
+            <div class="info-box-value">${game.size}</div>
+        </div>
+        <div class="info-box">
+            <div class="info-box-label">⬇ دانلودها</div>
+            <div class="info-box-value">${game.downloads}</div>
+        </div>
+    `;
+
+    // لینک‌های دانلود
+    document.getElementById('downloadLinks').innerHTML = game.links.map((link, index) => `
+        <a href="${link.url}" class="download-item" target="_blank" rel="noopener noreferrer">
+            <span class="download-icon-detail">${link.icon}</span>
+            <div class="download-info-detail">
+                <div class="download-name-detail">${link.name}</div>
+                <div class="download-size-detail">${link.size}</div>
+            </div>
+            <span class="download-badge">دانلود</span>
+        </a>
+    `).join('');
+}
+</script>
+
+</body>
+</html>

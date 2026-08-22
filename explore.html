@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Games - GAMEVERSE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+/* ============================================
+   EXPLORE PAGE - PURPLE THEME (ریسپانسیو درست)
+   ============================================ */
+
+/* ============================================
+   EXPLORE PAGE - PURPLE THEME
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(135deg,
+            #0a0015 0%,
+            #1a0030 25%,
+            #2d0050 50%,
+            #1a0030 75%,
+            #0a0015 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== هدر ===== */
+.explore-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 30px;
+    background: linear-gradient(135deg,
+            rgba(30, 0, 60, 0.95) 0%,
+            rgba(50, 0, 80, 0.9) 50%,
+            rgba(20, 0, 40, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border-bottom: 2px solid rgba(150, 0, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(150, 0, 255, 0.3);
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.explore-header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    background: linear-gradient(135deg, #c084fc, #a855f7, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 30px rgba(150, 0, 255, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.explore-header .back-home {
+    padding: 10px 25px;
+    background: rgba(150, 0, 255, 0.2);
+    border: 2px solid rgba(150, 0, 255, 0.3);
+    border-radius: 50px;
+    color: #d4a1ff;
+    text-decoration: none;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.explore-header .back-home:hover {
+    background: rgba(200, 50, 255, 0.3);
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px rgba(200, 50, 255, 0.4);
+}
+
+/* ===== تعداد بازی‌ها ===== */
+.games-count {
+    color: #a080c0;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 14px;
+    padding: 10px 20px;
+    background: rgba(150, 0, 255, 0.08);
+    border-radius: 50px;
+    border: 1px solid rgba(150, 0, 255, 0.15);
+}
+
+.games-count span {
+    color: #d4a1ff;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* ===== گرید ===== */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* ===== کارت ===== */
+.explore-card {
+    background: linear-gradient(135deg,
+            rgba(30, 0, 60, 0.9) 0%,
+            rgba(50, 0, 80, 0.85) 50%,
+            rgba(20, 0, 40, 0.9) 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(150, 0, 255, 0.2);
+    box-shadow: 0 0 30px rgba(150, 0, 255, 0.15);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.explore-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(200, 50, 255, 0.5);
+    box-shadow: 0 0 50px rgba(150, 0, 255, 0.4), 0 0 80px rgba(150, 0, 255, 0.2);
+}
+
+/* ===== تصویر ۹:۱۶ ===== */
+.explore-card-image {
+    position: relative;
+    padding-top: 177.78%;
+    overflow: hidden;
+    background: #0d1117;
+}
+
+.explore-card-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.explore-card:hover .explore-card-image img {
+    transform: scale(1.08);
+}
+
+.explore-card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: linear-gradient(to top,
+            rgba(10, 0, 20, 0.9) 0%,
+            transparent 100%);
+    pointer-events: none;
+}
+
+/* ===== اطلاعات ===== */
+.explore-card-info {
+    padding: 18px 18px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.explore-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(150, 0, 255, 0.3);
+    letter-spacing: 1px;
+    line-height: 1.2;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 44px;
+}
+
+.explore-card-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 5px 0;
+}
+
+.explore-card-tag {
+    font-size: 10px;
+    padding: 3px 10px;
+    background: rgba(150, 0, 255, 0.15);
+    border: 1px solid rgba(200, 50, 255, 0.2);
+    border-radius: 50px;
+    color: #d4a1ff;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 500;
+}
+
+.explore-card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 13px;
+    color: #a080c0;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.explore-card-details span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.explore-card-rating {
+    color: #ffd700;
+    font-weight: 600;
+}
+
+.explore-card-size {
+    color: #b894e0;
+}
+
+/* ===== دکمه ===== */
+.explore-card-btn {
+    margin-top: 12px;
+    padding: 10px 0;
+    background: linear-gradient(135deg,
+            rgba(255, 140, 0, 0.2) 0%,
+            rgba(255, 100, 0, 0.15) 50%,
+            rgba(255, 60, 0, 0.2) 100%);
+    border: 2px solid rgba(255, 150, 50, 0.3);
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: 'Chakra Petch', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 120, 0, 0.15);
+}
+
+.explore-card-btn:hover {
+    background: linear-gradient(135deg,
+            rgba(255, 160, 0, 0.3) 0%,
+            rgba(255, 120, 0, 0.25) 50%,
+            rgba(255, 80, 0, 0.3) 100%);
+    border-color: rgba(255, 180, 50, 0.6);
+    box-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.no-games {
+    text-align: center;
+    padding: 80px 20px;
+    color: #a080c0;
+    font-size: 20px;
+}
+
+.no-games span {
+    font-size: 60px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   ریسپانسیو ساده - فقط برای موبایل
+   ============================================ */
+
+/* تبلت و موبایل بزرگ */
+@media (max-width: 1024px) {
+    .explore-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 25px;
+    }
+}
+
+/* موبایل */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .explore-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0;
+    }
+
+    .explore-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 18px 20px;
+        gap: 12px;
+        border-radius: 16px;
+    }
+
+    .explore-header h1 {
+        font-size: 22px;
+        justify-content: center;
+    }
+
+    .explore-card-title {
+        font-size: 14px;
+        min-height: 34px;
+    }
+
+    .explore-card-info {
+        padding: 12px 12px 16px;
+        gap: 5px;
+    }
+
+    .explore-card-tag {
+        font-size: 8px;
+        padding: 2px 8px;
+    }
+
+    .explore-card-details {
+        font-size: 11px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3px;
+    }
+
+    .explore-card-btn {
+        font-size: 11px;
+        padding: 8px 0;
+        margin-top: 8px;
+    }
+
+    .explore-card:hover {
+        transform: none;
+    }
+
+    .explore-card:active {
+        transform: scale(0.97);
+    }
+
+    .explore-card:hover .explore-card-image img {
+        transform: none;
+    }
+}
+
+/* موبایل کوچک */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .explore-grid {
+        gap: 12px;
+    }
+
+    .explore-header {
+        padding: 14px 16px;
+        border-radius: 14px;
+    }
+
+    .explore-header h1 {
+        font-size: 18px;
+    }
+
+    .explore-header .back-home {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+
+    .games-count {
+        font-size: 12px;
+        padding: 6px 14px;
+    }
+
+    .games-count span {
+        font-size: 15px;
+    }
+
+    .explore-card {
+        border-radius: 14px;
+    }
+
+    .explore-card-title {
+        font-size: 12px;
+        min-height: 28px;
+        letter-spacing: 0.3px;
+    }
+
+    .explore-card-info {
+        padding: 10px 10px 14px;
+        gap: 4px;
+    }
+
+    .explore-card-tag {
+        font-size: 7px;
+        padding: 1px 6px;
+    }
+
+    .explore-card-details {
+        font-size: 10px;
+        gap: 2px;
+    }
+
+    .explore-card-btn {
+        font-size: 10px;
+        padding: 6px 0;
+        margin-top: 6px;
+        letter-spacing: 0.3px;
+    }
+}
+
+/* صفحه‌های خیلی کوچک */
+@media (max-width: 360px) {
+    body {
+        padding: 8px;
+    }
+
+    .explore-grid {
+        gap: 10px;
+    }
+
+    .explore-header h1 {
+        font-size: 16px;
+    }
+
+    .explore-card-title {
+        font-size: 11px;
+        min-height: 24px;
+    }
+
+    .explore-card-info {
+        padding: 8px 8px 12px;
+    }
+
+    .explore-card-btn {
+        font-size: 9px;
+        padding: 5px 0;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- ===== هدر ===== -->
+    <header class="explore-header">
+        <h1>🎮 Explore Games</h1>
+        <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+            <span class="games-count">🎯 <span id="gameCount">0</span> بازی</span>
+            <a href="index.html" class="back-home">🏠 بازگشت به خانه</a>
+        </div>
+    </header>
+
+    <!-- ===== گرید بازی‌ها ===== -->
+    <div class="explore-grid" id="exploreGrid">
+        <!-- کارت‌ها با جاوااسکریپت ساخته می‌شن -->
+    </div>
+
+    <script>
+        // =============================================
+        // دیتابیس بازی‌ها
+        // =============================================
+        const games = {
+            1: {
+                title: "CYBERPUNK 2077",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co7iy1.webp",
+                tags: ["RPG", "Open World", "Action"],
+                rating: "4.8",
+                size: "70 GB",
+                release: "2020"
+            },
+            2: {
+                title: "GOD OF WAR RAGNARÖK",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/coba3d.webp",
+                tags: ["Action", "Adventure", "Norse"],
+                rating: "4.9",
+                size: "90 GB",
+                release: "2022"
+            },
+            3: {
+                title: "ELDEN RING",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co4jni.webp",
+                tags: ["Souls-like", "RPG", "Fantasy"],
+                rating: "4.9",
+                size: "60 GB",
+                release: "2022"
+            },
+            4: {
+                title: "RED DEAD REDEMPTION 2",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co1q1f.webp",
+                tags: ["Western", "Adventure", "Open World"],
+                rating: "4.8",
+                size: "150 GB",
+                release: "2018"
+            },
+            5: {
+                title: "THE WITCHER 3",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/coaarl.webp",
+                tags: ["Fantasy", "RPG", "Open World"],
+                rating: "4.9",
+                size: "50 GB",
+                release: "2015"
+            },
+            6: {
+                title: "HORIZON FORBIDDEN WEST",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co2gvu.webp",
+                tags: ["Action", "Sci-Fi", "Open World"],
+                rating: "4.7",
+                size: "100 GB",
+                release: "2022"
+            },
+            7: {
+                title: "Alan Wake 2",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/co6jar.webp",
+                tags: ["Sci-Fi", "Space", "RPG"],
+                rating: "4.8",
+                size: "100 GB",
+                release: "2023"
+            },
+            8: {
+                title: "GTA VI",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/cocaa5.webp",
+                tags: ["Role Playing", "Open World", "Adventure"],
+                rating: "4.8",
+                size: "150 GB",
+                release: "2026"
+            },
+            9: {
+                title: "Beast of Reincarnation",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/cobc5q.webp",
+                tags: ["RPG", "Fantasy", "Strategy"],
+                rating: "4.5",
+                size: "30 GB",
+                release: "2026"
+            },
+            10: {
+                title: "EGO Batman: Legacy of the Dark Knight",
+                poster: "https://images.igdb.com/igdb/image/upload/t_cover_big/coab09.webp",
+                tags: ["RPG", "Fantasy", "Strategy"],
+                rating: "4.8",
+                size: "60gb",
+                release: "2026"
+            },
+        };
+
+        // =============================================
+        // ساخت کارت‌ها
+        // =============================================
+        function renderGames() {
+            const grid = document.getElementById('exploreGrid');
+            const count = document.getElementById('gameCount');
+            
+            // تعداد بازی‌ها
+            const gameKeys = Object.keys(games);
+            count.textContent = gameKeys.length;
+
+            // اگه بازی وجود نداشت
+            if (gameKeys.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-games">
+                        <span>🎮</span>
+                        هیچ بازی برای نمایش وجود ندارد!
+                    </div>
+                `;
+                return;
+            }
+
+            // ساخت کارت‌ها
+            grid.innerHTML = gameKeys.map(id => {
+                const game = games[id];
+                return `
+                    <div class="explore-card" onclick="goToGame(${id})">
+                        <div class="explore-card-image">
+                            <img src="${game.poster}" alt="${game.title}" loading="lazy">
+                        </div>
+                        <div class="explore-card-info">
+                            <h3 class="explore-card-title">${game.title}</h3>
+                            <div class="explore-card-tags">
+                                ${game.tags.map(tag => `<span class="explore-card-tag">${tag}</span>`).join('')}
+                            </div>
+                            <div class="explore-card-details">
+                                <span class="explore-card-rating">⭐ ${game.rating}</span>
+                                <span class="explore-card-size">📅 ${game.release}</span>
+                                <span class="explore-card-size">💾 ${game.size}</span>
+                            </div>
+                            <a href="javascript:void(0)" onclick="event.stopPropagation(); goToGame(${id})" class="explore-card-btn">
+                                📥 مشاهده و دانلود
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // =============================================
+        // تابع رفتن به صفحه جزئیات
+        // =============================================
+        function goToGame(id) {
+            window.location.href = 'game-info.html?id=' + id;
+        }
+
+        // =============================================
+        // اجرا
+        // =============================================
+        document.addEventListener('DOMContentLoaded', renderGames);
+    </script>
+
+</body>
+</html>
